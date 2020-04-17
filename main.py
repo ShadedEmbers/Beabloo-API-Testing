@@ -7,6 +7,7 @@ from beablooAPI import (get_key,
                         base64_encode)
 from body import beabloo_body
 
+
 # define a class to store credentials
 class Credential:
     pass
@@ -39,7 +40,7 @@ while not option:
     option_selected = input('Choice: ')
     try:
         val = int(option_selected)
-        if val not in range(1, 4):
+        if val not in range(1, 5):
             print("Please select from the given options \n e.g. 1")
 
         # Option 1 | Upload to new messages
