@@ -1,11 +1,11 @@
 # Beabloo-API-Testing
 
-####What does it do?
+#### What does it do?
 
 This script will let you upload, edit and delete dummy messages to the Beabloo API
 
 
-####How to use:
+#### How to use:
 
 1. cd into directory containing the scripts
 2. depending on your Operating system and Python version use one of the following:
