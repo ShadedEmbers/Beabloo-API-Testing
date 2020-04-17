@@ -32,6 +32,7 @@ Make sure to add Python to your PATH enviroment variables and confim you are als
 Linux: 
 
 Ubuntu - apt install python3 pip3
+
 Centos - yum install python3 pip3
 
 
