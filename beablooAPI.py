@@ -9,6 +9,7 @@ new messages
 (base64_encode, remove_emoji)
 """
 import requests, json, base64, sys
+from logger import log
 
 base_url = "https://cms.beabloo.com/engine2/rest/cms/api/v2/"
 
@@ -33,7 +34,7 @@ def get_key(username, password):
         return True, request.text
 
 
-def create_message(key, channel_id, body):
+def create_message(key, channel_id, body, logging=None):
     s = requests.Session()
     headers = {"Authorization": key, 'Content-Type': 'application/json'}
     request = s.post(base_url + 'channels/' + channel_id + "/posts/",
@@ -43,22 +44,31 @@ def create_message(key, channel_id, body):
     if request.status_code != 200:
         print('Error uploading message status code: '
               + str(request.status_code))
+        print(request.text)
+        log(headers, body)
         return False
     else:
         data = json.loads(request.text)
+        if logging:
+            log(headers, body, data["id"])
         return True, data["id"]
 
 
-def edit_message(key, message_id, body):
+def edit_message(key, message_id, body, logging=None):
     s = requests.Session()
     headers = {"Authorization": key, 'Content-Type': 'application/json'}
     request = s.put(base_url + 'posts/' + str(message_id),
                     data=json.dumps(body),
                     headers=headers)
-    if request.status_code == 200:
-        return True
-    else:
+    if request.status_code != 200:
+        print('Error editing message status code: '
+              + str(request.status_code))
         return False
+    else:
+        data = json.loads(request.text)
+        if logging:
+            log(headers, body, data["id"])
+        return True
 
 
 def get_message_list(key, channel_id):
